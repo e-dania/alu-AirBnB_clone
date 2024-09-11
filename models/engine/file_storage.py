@@ -1,32 +1,46 @@
 #!/usr/bin/python3
 import json
-import os
 from models.base_model import BaseModel
 
 class FileStorage:
     """Main Data Engine. Handles JSOn conversions"""
     """class is FileStorage. serialises to JSON file. Desiralises from JSON file too."""
-
-    json_file_path = "user_data.json"
-    data_packet = {}
+    __objects = {}
+    __file_path = "file.json"
 
     def all(self):
-        return FileStorage.data_packet[data_key] = data_object
+        return FileStorage.__objects
 
     def new(self, data_object):
         """Adding info to class's object"""
-        data_class_name =  data_object.__class__.__name__
-        data_key = "{}.{}".format(data_class_name.data_object.id)
-        FileStorage.data_packet[data_key] = data_object
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        self.__objects[key] = obj
 
     def save(self):
         """Once through BaseModel data saved as JSON instance"""
-        saved_data =  FileStorage.data_packet
-        data_dict = []
+        obj_dict = []
 
-        for i in saved_data.keys():
-            data_dict[data] = saved_data[data].to_dict()
+        for key, value in self.__objects.items():
+            obj_dict[key] = value.to_dict()
 
-            with open(FileStorage.json_file_path, "w", encoding="utf-8") as file:
-                json.dump(data_dict, file)
+        try:
+            with open(self.__file_path, 'w') as file:
+                json.dump(obj_dict, file, indent=2)
+        except FileNotFoundError:
+            pass
+
+    def reload(self):
+        """Takes JSON to desiralise it (un-JSON-ify it when necessary)"""
+        try:
+            with open(FileStorage.__file_path, 'r') as file:
+                obj_dict = json.load(file)
+
+                for key, value in obj_dict.items():
+                    self.__objects[key] = eval(
+                        f"{value['__class__']}(**{value})")
+
+        except FileNotFoundError:
+            None
+
+            
 

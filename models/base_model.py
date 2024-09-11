@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import datetime
 import uuid
-
+from engine.file_storage import FileStorage
 class BaseModel:
     
     """Id(int), created_at, updated_at.Base Line Attributes."""
@@ -21,23 +21,27 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
+            self.storage = FileStorage()
 
 
     def __str__(self):
         """Returns user objject in string format"""
-        classname = self.__class__.__name__
-        return f"[<{self.classname}>({self.id})] {self.__dict__}"
+        classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
+        return classname
 
     def save(self):
         """updating saved data with data and time """
         self.update_time = datetime.now()
+        self.storage.save()
 
     def to_dict(self):
         """returns dictionary of object so it's saved. Using class attributes above"""
         data_to_dict = self.__dict__.copy()
         data_to_dict["__class__"] = self.__class__.__name__
-        data_to_dict["created_at"] = self.created_at.isoformat()
-        data_to_dict["updated_at"] = self.updated_at.isoformat()
+        for key, value in self.__dict__.items():
+            if key == 'created_at' or key == 'updated_at':
+                value = value.isoformat()
+            data_to_dict[key] = value
 
         return data_to_dict
     

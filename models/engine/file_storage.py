@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""File Storage ENGINE! handles the Data to and from JSON"""
 import json
 from models.base_model import BaseModel
 
@@ -11,7 +12,7 @@ class FileStorage:
     def all(self):
         return FileStorage.__objects
 
-    def new(self, data_object):
+    def new(self, obj):
         """Adding info to class's object"""
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj

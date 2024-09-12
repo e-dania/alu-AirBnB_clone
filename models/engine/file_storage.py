@@ -1,25 +1,42 @@
 #!/usr/bin/python3
-"""File Storage ENGINE! handles the Data to and from JSON"""
+"""
+This module defines a FileStorage class that stores
+and retrieves objects to and from a JSON file.
+"""
 import json
 from models.base_model import BaseModel
 
 class FileStorage:
-    """Main Data Engine. Handles JSOn conversions"""
-    """class is FileStorage. serialises to JSON file. Desiralises from JSON file too."""
-    __objects = {}
+    """
+    A file storage system for storing and retrieving objects.
+    """
+
     __file_path = "file.json"
+    __objects = {}
 
     def all(self):
+        """
+        Returns the dictionary of all objects currently stored.
+
+        Returns:
+            dict: A dictionary of all objects currently stored.
+        """
         return FileStorage.__objects
 
     def new(self, obj):
-        """Adding info to class's object"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        """
+        Adds a new object to the storage.
+
+        Args:
+            obj (object): The object to be added to the storage.
+        """
+        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
-        """Once through BaseModel data saved as JSON instance"""
-        obj_dict = []
+        """
+        Saves the objects in the storage to a JSON file.
+        """
+        obj_dict = {}
 
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
@@ -31,7 +48,9 @@ class FileStorage:
             pass
 
     def reload(self):
-        """Takes JSON to desiralise it (un-JSON-ify it when necessary)"""
+        """
+        Reloads the objects from the JSON file into the storage.
+        """
         try:
             with open(FileStorage.__file_path, 'r') as file:
                 obj_dict = json.load(file)
@@ -41,7 +60,4 @@ class FileStorage:
                         f"{value['__class__']}(**{value})")
 
         except FileNotFoundError:
-            None
-
-            
-
+            pass

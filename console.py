@@ -95,3 +95,5 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
             return
         if len(args)
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()

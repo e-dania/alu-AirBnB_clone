@@ -2,16 +2,16 @@
 """This Class file is the base clase for literally all core features"""
 import datetime
 import uuid
-from engine.file_storage import FileStorage
+import models
 class BaseModel:
     """Base Model Class."""
 
     def __init__(self, *args, **kwargs):
         """Id(int), created_at, updated_at.Base Line Attributes."""
+        models.storage.new(self)
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = self.created_at
-        self.storage = FileStorage()
 
     def __str__(self):
 

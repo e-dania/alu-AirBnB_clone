@@ -1,42 +1,25 @@
 #!/usr/bin/python3
-"""
-This module defines a FileStorage class that stores
-and retrieves objects to and from a JSON file.
-"""
+"""File Storage ENGINE! handles the Data to and from JSON"""
 import json
 from models.base_model import BaseModel
 
 class FileStorage:
-    """
-    A file storage system for storing and retrieving objects.
-    """
-
-    __file_path = "file.json"
+    """Main Data Engine. Handles JSOn conversions"""
+    """class is FileStorage. serialises to JSON file. Desiralises from JSON file too."""
     __objects = {}
+    __file_path = "file.json"
 
     def all(self):
-        """
-        Returns the dictionary of all objects currently stored.
-
-        Returns:
-            dict: A dictionary of all objects currently stored.
-        """
         return FileStorage.__objects
 
     def new(self, obj):
-        """
-        Adds a new object to the storage.
-
-        Args:
-            obj (object): The object to be added to the storage.
-        """
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        """Adding info to class's object"""
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        self.__objects[key] = obj
 
     def save(self):
-        """
-        Saves the objects in the storage to a JSON file.
-        """
-        obj_dict = {}
+        """Once through BaseModel data saved as JSON instance"""
+        obj_dict = []
 
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
@@ -48,9 +31,7 @@ class FileStorage:
             pass
 
     def reload(self):
-        """
-        Reloads the objects from the JSON file into the storage.
-        """
+        """Takes JSON to desiralise it (un-JSON-ify it when necessary)"""
         try:
             with open(FileStorage.__file_path, 'r') as file:
                 obj_dict = json.load(file)
@@ -60,4 +41,7 @@ class FileStorage:
                         f"{value['__class__']}(**{value})")
 
         except FileNotFoundError:
-            pass
+            None
+
+            
+

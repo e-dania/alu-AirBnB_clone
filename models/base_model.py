@@ -8,15 +8,17 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Id(int), created_at, updated_at.Base Line Attributes."""
-        models.storage.new(self)
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = self.created_at
-
-    def __str__(self):
-        """Returns user objject in string format"""
-        classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
-        return classname
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.fromisoformat(value)
+                if key != '__class__':
+                    setattr(self, key, value)
+        else:
+            models.storage.new(self)
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = self.created_at
 
     def save(self):
         """updating saved data with data and time """
@@ -32,8 +34,13 @@ class BaseModel:
                 value = value.isoformat()
             data_to_dict[key] = value
         return data_to_dict
-    
+
+    def __str__(self):
+        """Returns user objject in string format"""
+        classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
+        return classname
 
 class Trenches:
+        """Using this to check an issue SMH dnt worry"""
         def __init__(self):
             return 0

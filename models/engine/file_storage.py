@@ -2,6 +2,7 @@
 """File Storage ENGINE! handles the Data to and from JSON"""
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 class FileStorage:
     """Main Data Engine. Handles JSOn conversions"""
@@ -15,7 +16,7 @@ class FileStorage:
     def new(self, obj):
         """Adding info to class's object"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        obj = self.__objects[key]
 
     def save(self):
         """Once through BaseModel data saved as JSON instance"""

@@ -14,7 +14,6 @@ class BaseModel:
         self.updated_at = self.created_at
 
     def __str__(self):
-
         """Returns user objject in string format"""
         classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
         return classname
@@ -33,3 +32,8 @@ class BaseModel:
                 value = value.isoformat()
             data_to_dict[key] = value
         return data_to_dict
+    
+
+class Trenches:
+        def __init__(self):
+            return 0

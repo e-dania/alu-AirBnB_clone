@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This Class file is the base clase for literally all core features"""
 import uuid
-import models
 from datetime import datetime
+import models
 
 
 class BaseModel:

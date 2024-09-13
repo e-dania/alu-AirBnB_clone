@@ -48,4 +48,4 @@ class FileStorage:
                         f"{value['__class__']}(**{value})")
 
         except FileNotFoundError:
-            None
+            pass

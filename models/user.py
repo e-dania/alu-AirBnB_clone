@@ -9,7 +9,6 @@ class User(BaseModel):
     """
     This represents a User's base registration info.
     """
-
     email = ""
     password = ""
     first_name = ""

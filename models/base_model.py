@@ -3,6 +3,8 @@
 from datetime import datetime
 import uuid
 import models
+
+
 class BaseModel:
     """Base Model Class."""
 
@@ -40,7 +42,9 @@ class BaseModel:
         classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
         return classname
 
+
 class Trenches:
-        """Using this to check an issue SMH dnt worry"""
-        def __init__(self):
-            return 0
+    """Using this to check an issue SMH dnt worry"""
+
+    def __init__(self):
+        return 0

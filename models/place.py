@@ -2,6 +2,7 @@
 """Class for data in specific state location"""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """data variables for all place stuff"""
     city_id = ""
@@ -15,8 +16,6 @@ class Place(BaseModel):
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-
-
 
     def __init__(self, *args, **kwargs):
         """Initialsing empty arguments because initialisation needed"""

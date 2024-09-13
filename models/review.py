@@ -3,6 +3,7 @@
 
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
     """Variables for review Data"""
     place_id = ""
@@ -10,5 +11,5 @@ class Review(BaseModel):
     text = ""
 
     def __init__(self, *args, **kwargs):
-            """Initialsing empty arguments because initialisation needed"""
-            super().__init(*args, **kwargs)
+        """Initialsing empty arguments because initialisation needed"""
+        super().__init(*args, **kwargs)

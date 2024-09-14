@@ -1,41 +1,61 @@
 #!/usr/bin/python3
 """File Storage ENGINE! handles the Data to and from JSON"""
-import json
+from json import dump, load
+from os.path import exists
+
+
 class FileStorage:
-    """Main Data Engine. Handles JSOn conversions"""
-    """class is FileStorage. serialises to JSON file. Desiralises from JSON file too."""
-    
-    __file_path = "file.json"
-    __objects = {}
+   
+    __file_path = "file.json"  
+    __objects = {}  id
 
     def all(self):
+      
         return FileStorage.__objects
 
     def new(self, obj):
-        """Adding info to class's object"""
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+       
+        key = f"{type(obj).__name__}.{obj.id}"
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        """Once through BaseModel data saved as JSON instance"""
-        obj_dict = {}
-
-        for key, value in self.__objects.items():
-            obj_dict[key] = value.to_dict()
-
-        try:
-            with open(self.__file_path, 'w') as file:
-                json.dump(obj_dict, file, indent=2)
-        except FileNotFoundError:
-            pass
+       
+        obj_dict = {key: value.to_dict() for key,
+                    value in FileStorage.__objects.items()}
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+            dump(obj_dict, f)
 
     def reload(self):
-        """Takes JSON to desiralise it (un-JSON-ify it when necessary)"""
-        try:
-            with open(FileStorage.__file_path, 'r') as file:
-                obj_dict = json.load(file)
+      
+        if exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+                loaded_dict = load(f)
+                
+                for key, value in loaded_dict.items():
+                    class_name = key.split('.')[0]
+                   
+                    self.__objects[key] = eval(f"{class_name}(**value)")
 
-                for key, value in obj_dict.items():
-                    self.__objects[key] = eval(f"{value['__class__']}(**{value})")
+    def reload(self):
 
-        except FileNotFoundError:
-            pass
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.city import City
+        from models.state import State
+        from models.amenity import Amenity
+        from models.review import Review
+        file_name = FileStorage.__file_path
+     
+        if exists(file_name):
+          
+            with open(file_name) as f:
+                obj_dict = load(f)
+       
+            for value in obj_dict.values():
+               
+                class_name = eval(value["__class__"])
+                del value["__class__"]
+               
+                obj = class_name(**value)
+                self.new(obj)

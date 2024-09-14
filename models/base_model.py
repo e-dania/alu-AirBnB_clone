@@ -28,3 +28,9 @@ class BaseModel:
                     )
                 else:
                     self.__dict__[key] = value
+        else:
+            # Initialize new object with id, created_at, and updated_at
+            self.id = str(u4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)

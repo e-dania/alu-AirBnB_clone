@@ -32,8 +32,8 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the HolbertonBnB command interpreter. 
-    Attributes: prompt (str): 
+    """Defines the HolbertonBnB command interpreter.
+    Attributes: prompt (str):
     The command prompt"""
 
     intro = "Welcome to the AirBnB Clone. Type help or ? to list commands.\n"
@@ -114,8 +114,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
+            
     def do_show(self, arg):
-        """Usage: show <class> <id> or <class>.show(<id>). 
+        """Usage: show <class> <id> or <class>.show(<id>).
         Display the string representation of a class instance of a given id."""
         argl = parse(arg)
         objdict = storage.all()
@@ -164,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
             print(objl)
 
     def do_count(self, arg):
-        """Usage: count <class> or <class>.count(). 
+        """Usage: count <class> or <class>.count().
         Retrieve the number of instances of a given class."""
         argl = parse(arg)
         count = 0

@@ -1,5 +1,5 @@
 # alu-AirBnB_clone:
-An AirBnB clone. Full enterprise level. From console application testing to full web page with all functionality.
+An AirBnB clone. A Full enterprise level project. From console application testing to full web page with all functionality.
 
 # Starting-Project:
 1. Find console.py in folder

@@ -26,7 +26,7 @@ class BaseModel:
 
     def save(self):
         """updating saved data with data and time """
-        self.update_time = datetime.now()
+        self.updated_at = datetime.now()
         self.storage.save()
 
     def to_dict(self):
@@ -41,12 +41,7 @@ class BaseModel:
 
     def __str__(self):
         """Returns user objject in string format"""
-        classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
-        return classname
+        return  f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
+        
 
 
-class Trenches:
-    """Using this to check an issue SMH dnt worry"""
-
-    def __init__(self):
-        return 0

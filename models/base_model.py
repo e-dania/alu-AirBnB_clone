@@ -17,11 +17,11 @@ class BaseModel:
                 if key != '__class__':
                     setattr(self, key, value)
         else:
-            models.storage.new(self)
+            
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
-
+            models.storage.new(self)
     def save(self):
         """updating saved data with data and time """
         self.update_time = datetime.now()

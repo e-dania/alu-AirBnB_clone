@@ -1,32 +1,23 @@
 #!/usr/bin/python3
 """File Storage ENGINE! handles the Data to and from JSON"""
 import json
-from models.base_model import BaseModel
-from models.user import User
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-
 class FileStorage:
     """Main Data Engine. Handles JSOn conversions"""
     """class is FileStorage. serialises to JSON file. Desiralises from JSON file too."""
-    __objects = {}
+    
     __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         return FileStorage.__objects
 
     def new(self, obj):
         """Adding info to class's object"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        obj = self.__objects[key]
+        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
         """Once through BaseModel data saved as JSON instance"""
-        obj_dict = []
+        obj_dict = {}
 
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
@@ -44,8 +35,7 @@ class FileStorage:
                 obj_dict = json.load(file)
 
                 for key, value in obj_dict.items():
-                    self.__objects[key] = eval(
-                        f"{value['__class__']}(**{value})")
+                    self.__objects[key] = eval(f"{value['__class__']}(**{value})")
 
         except FileNotFoundError:
-            None
+            pass

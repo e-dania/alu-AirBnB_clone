@@ -41,7 +41,5 @@ class BaseModel:
 
     def __str__(self):
         """Returns user objject in string format"""
-        return  f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
-        
-
-
+        classname = f"[<{self.__class.__name__}>({self.id})] {self.__dict__}"
+        return classname

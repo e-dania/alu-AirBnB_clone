@@ -18,10 +18,12 @@ class BaseModel:
                     setattr(self, key, value)
         else:
             
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = self.created_at
             models.storage.new(self)
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            
+
     def save(self):
         """updating saved data with data and time """
         self.update_time = datetime.now()

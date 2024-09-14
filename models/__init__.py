@@ -14,6 +14,7 @@ from models.review import Review
 """Mention storage as this where all class data saved to."""
 storage = FileStorage()
 storage.reload()
+loaded_objects = storage.all()
 
 classes = {
     "BaseModel": BaseModel,

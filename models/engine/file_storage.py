@@ -7,8 +7,7 @@ from os.path import exists
 class FileStorage:
    
     __file_path = "file.json"  
-    __objects = {}  id
-
+    __objects = {} 
     def all(self):
       
         return FileStorage.__objects

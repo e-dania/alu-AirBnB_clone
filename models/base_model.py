@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-"""This Class file is the base clase for literally all core features"""
 
 from uuid import uuid4 as u4
 from datetime import datetime
@@ -34,7 +33,8 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
-def __str__(self):
+
+    def __str__(self):
         """
         Returns a string representation of the instance in the format:
         [<class name>] (<self.id>) <self.__dict__>

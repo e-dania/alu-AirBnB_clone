@@ -9,7 +9,3 @@ class Review(BaseModel):
     place_id = ""
     user_id = ""
     text = ""
-
-    def __init__(self, *args, **kwargs):
-        """Initialsing empty arguments because initialisation needed"""
-        super().__init(*args, **kwargs)
